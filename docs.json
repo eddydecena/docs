@@ -39,7 +39,7 @@
         "groups": [
           {
             "group": "Endpoints",
-            "openapi": "./api-reference/openapi-1.json"
+            "openapi": "/api-reference/openapi-1.json"
           }
         ]
       }
