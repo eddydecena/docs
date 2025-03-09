@@ -38,11 +38,8 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "Endpoint Examples",
-            "openapi": {
-              "source": "/api-reference/openapi-1.json",
-              "directory": "api-reference"
-            }
+            "group": "Endpoints",
+            "openapi": "/api-reference/openapi-1.json"
           }
         ]
       }
