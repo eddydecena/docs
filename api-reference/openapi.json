@@ -1,217 +1,1315 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
+    "swagger": "2.0",
+    "info": {
+        "description": "Democratizing data access through plain English.",
+        "title": "Poligono API",
+        "termsOfService": "https://swagger.io/terms/",
+        "contact": {
+            "name": "Poligono Support",
+            "url": "https://www.swagger.io/support",
+            "email": "dev@poligono.xyz"
         },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+        "license": {
+            "name": "GNU Affero General Public License version 3",
+            "url": "https://www.gnu.org/licenses/agpl-3.0.html"
         }
-      }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+    "paths": {
+        "/datasources": {
+            "post": {
+                "description": "Create a new data source configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Add Data Source",
+                "parameters": [
+                    {
+                        "description": "Data Source",
+                        "name": "Data_Source",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/datasource.DataSource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
                 }
-              }
             }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
+        "/datasources/all": {
+            "get": {
+                "description": "Retrieve all data sources associated with the specified organization",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "List Data Sources",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/datasource.DataSource"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/datasources/synchronize/{id}": {
+            "post": {
+                "description": "Synchronize data source schemas",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Sync Data Source",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/datasources/{id}": {
+            "get": {
+                "description": "Retrieve data source configuration with the specified id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Retrieve Data Source by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datasource.DataSource"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update the configuration of the specified data source",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Modify Data Source",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Data Source",
+                        "name": "Data_Source",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/datasource.UpdateRequestDataSourceBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datasource.DataSource"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/datasources/{name}": {
+            "delete": {
+                "description": "Permanently deletes the specified data source",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Remove Data Source",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datasource.DataSource"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/engine": {
+            "post": {
+                "description": "Create a new Engine configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "engine"
+                ],
+                "summary": "Add Engine",
+                "parameters": [
+                    {
+                        "description": "Engine",
+                        "name": "Engine",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/engine.EngineObject"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/engine/all": {
+            "get": {
+                "description": "Retrieve all Engines associated with the specified organization",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "engine"
+                ],
+                "summary": "List Engine",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/engine.EngineObject"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/engine/{id}": {
+            "put": {
+                "description": "Update the configuration of the specified Engine",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Modify Engine",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Engine Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Engine",
+                        "name": "Engine",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/engine.EngineObjectUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/engine.EngineObject"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Permanently deletes the specified data source",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Remove Data Source",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/engine.EngineObject"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/engine/{name}": {
+            "get": {
+                "description": "Retrieve Engine configuration with the specified id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "engine"
+                ],
+                "summary": "Retrieve Engine by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source Name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/engine.EngineObject"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/llm": {
+            "post": {
+                "description": "Create a new LLM Provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Add LLM Provider",
+                "parameters": [
+                    {
+                        "description": "LLM Provider",
+                        "name": "LLM_Provider",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/llm.LLMProvider"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/llm/all": {
+            "get": {
+                "description": "Retrieve all data sources associated with the specified organization",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "List Data Sources",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/llm.LLMProvider"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/llm/{id}": {
+            "get": {
+                "description": "Retrieve LLM Provider configuration with the specified id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Retrieve LLM Provider by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "LLM Provider Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/llm.LLMProvider"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Permanently deletes the specified data source",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Remove Data Source",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Data Source Name",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/llm.LLMProvider"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/llm/{name}": {
+            "put": {
+                "description": "Update the configuration of the specified LLM Provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "data_source"
+                ],
+                "summary": "Modify LLM Provider",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "LLM Provider Name",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "LLM Provider",
+                        "name": "LLM_Provider",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/llm.LLMProviderUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/llm.LLMProvider"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/prompts/generate": {
+            "post": {
+                "description": "Create an SQL query based on a natural language prompt",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "query"
+                ],
+                "summary": "Generate SQL Query",
+                "parameters": [
+                    {
+                        "description": "Prompt Object",
+                        "name": "Prompt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GenerateQueryBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datachat.Prompt"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/prompts/improve": {
+            "post": {
+                "description": "Improve an SQL query based on a natural language prompt",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "query"
+                ],
+                "summary": "Improve SQL Query",
+                "parameters": [
+                    {
+                        "description": "Prompt Object",
+                        "name": "Prompt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ImproveQueryBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ImproveQueryActivity"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
+    },
+    "definitions": {
+        "controllers.GenerateQueryBody": {
             "type": "object",
             "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
+                "data_source_id": {
+                    "type": "string"
+                },
+                "engine_id": {
+                    "type": "string"
+                },
+                "execute": {
+                    "type": "boolean"
+                },
+                "llm_provider_id": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "prompt": {
+                    "type": "string"
+                }
             }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
+        },
+        "controllers.HTTPResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.ImproveQueryActivity": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "data_source_name": {
+                    "type": "string"
+                },
+                "improved_query": {
+                    "type": "string"
+                },
+                "organization_id": {
+                    "type": "string"
+                },
+                "original_query": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.ImproveQueryBody": {
+            "type": "object",
+            "properties": {
+                "data_source_id": {
+                    "type": "string"
+                },
+                "engine_id": {
+                    "type": "string"
+                },
+                "execute": {
+                    "type": "boolean"
+                },
+                "llm_provider_id": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "query": {
+                    "type": "string"
+                }
+            }
+        },
+        "datachat.Prompt": {
+            "type": "object",
+            "required": [
+                "created_at",
+                "created_by",
+                "data_source_id",
+                "data_source_name",
+                "execution_status",
+                "organization_id",
+                "prompt",
+                "query",
+                "type",
+                "updated_at"
+            ],
+            "properties": {
+                "created_at": {
+                    "description": "@format date-time",
+                    "type": "integer"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "data_source_id": {
+                    "type": "string"
+                },
+                "data_source_name": {
+                    "type": "string"
+                },
+                "execution_status": {
+                    "$ref": "#/definitions/datachat.PromptExecutionStatus"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "organization_id": {
+                    "type": "string"
+                },
+                "prompt": {
+                    "type": "string"
+                },
+                "query": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/datachat.PromptType"
+                },
+                "updated_at": {
+                    "description": "@format date-time",
+                    "type": "integer"
+                }
+            }
+        },
+        "datachat.PromptExecutionStatus": {
+            "type": "string",
+            "enum": [
+                "pending",
+                "running",
+                "completed",
+                "failed"
+            ],
+            "x-enum-varnames": [
+                "ExecutionStatusPending",
+                "ExecutionStatusRunning",
+                "ExecutionStatusCompleted",
+                "ExecutionStatusFailed"
+            ]
+        },
+        "datachat.PromptType": {
+            "type": "string",
+            "enum": [
+                "Generate",
+                "Optimize"
+            ],
+            "x-enum-varnames": [
+                "Generate",
+                "Optimize"
+            ]
+        },
+        "datasource.DataSource": {
+            "type": "object",
+            "required": [
+                "name",
+                "secret",
+                "synchronization_status",
+                "type"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "string"
+                },
+                "synchronization_status": {
+                    "enum": [
+                        "Synchronizing",
+                        "Synchronized",
+                        "Failed"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/datasource.SynchronizationStatus"
+                        }
+                    ]
+                },
+                "type": {
+                    "enum": [
+                        "PostgreSQL",
+                        "MySQL",
+                        "MariaDB"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/datasource.DataSourceType"
+                        }
+                    ]
+                }
+            }
+        },
+        "datasource.DataSourceType": {
+            "type": "string",
+            "enum": [
+                "PostgreSQL",
+                "MySQL",
+                "MariaDB"
+            ],
+            "x-enum-varnames": [
+                "PostgreSQL",
+                "MySQL",
+                "MariaDB"
+            ]
+        },
+        "datasource.SynchronizationStatus": {
+            "type": "string",
+            "enum": [
+                "Synchronizing",
+                "Synchronized",
+                "Failed"
+            ],
+            "x-enum-varnames": [
+                "Synchronizing",
+                "Synchronized",
+                "Failed"
+            ]
+        },
+        "datasource.UpdateRequestDataSourceBody": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "string"
+                }
+            }
+        },
+        "engine.EngineObject": {
+            "type": "object",
+            "required": [
+                "api_key",
+                "name",
+                "synchronization_status"
+            ],
+            "properties": {
+                "api_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "synchronization_status": {
+                    "enum": [
+                        "Trino",
+                        "Starburst"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/engine.EngineType"
+                        }
+                    ]
+                }
+            }
+        },
+        "engine.EngineObjectUpdate": {
+            "type": "object",
+            "required": [
+                "synchronization_status"
+            ],
+            "properties": {
+                "api_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "synchronization_status": {
+                    "enum": [
+                        "Trino",
+                        "Starburst"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/engine.EngineType"
+                        }
+                    ]
+                }
+            }
+        },
+        "engine.EngineType": {
+            "type": "string",
+            "enum": [
+                "Trino",
+                "Starburst"
+            ],
+            "x-enum-varnames": [
+                "Trino",
+                "Starburst"
+            ]
+        },
+        "llm.LLMProvider": {
+            "type": "object",
+            "required": [
+                "_id",
+                "api_key",
+                "created_at",
+                "created_by",
+                "name",
+                "organization_id",
+                "updated_at"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "api_key": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "integer"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "organization_id": {
+                    "type": "string"
+                },
+                "provider": {
+                    "description": "Model          string             `json:\"model\" bson:\"model,omitempty\"`",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "integer"
+                }
+            }
+        },
+        "llm.LLMProviderUpdate": {
+            "type": "object",
+            "properties": {
+                "api_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "integer"
+                }
+            }
         }
-      }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
     }
-  }
 }
