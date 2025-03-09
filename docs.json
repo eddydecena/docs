@@ -38,15 +38,9 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
             "group": "Endpoint Examples",
             "openapi": {
-              "source": "./openapi-1.json",
+              "source": "/api-reference/openapi-1.json",
               "directory": "api-reference"
             }
           }
