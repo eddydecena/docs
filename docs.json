@@ -46,7 +46,7 @@
           {
             "group": "Endpoint Examples",
             "openapi": {
-              "source": "api-reference/openapi-1.json",
+              "source": "openapi-1.json",
               "directory": "api-reference"
             }
           }
