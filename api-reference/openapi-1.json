@@ -12,9 +12,226 @@
         "license": {
             "name": "GNU Affero General Public License version 3",
             "url": "https://www.gnu.org/licenses/agpl-3.0.html"
-        }
+        },
+        "version": "1.0"
     },
     "paths": {
+        "/datachat": {
+            "get": {
+                "description": "Retrieve prompts using pagination",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataChat"
+                ],
+                "summary": "Retrieve prompts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/datachat.DataChat"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new datachat",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataChat"
+                ],
+                "summary": "Add datachat",
+                "parameters": [
+                    {
+                        "description": "DataChat",
+                        "name": "DataChat",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/datachat.DataChat"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datachat.DataChat"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/datachat/{id}": {
+            "get": {
+                "description": "Retrieve datachat with the specified id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataChat"
+                ],
+                "summary": "Retrieve datachat by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "DataChat id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datachat.DataChat"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update datachat",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataChat"
+                ],
+                "summary": "Modify datachat",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "DataChat Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Data Source",
+                        "name": "DataChat",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/datachat.DataChatUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/datachat.DataChat"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/datasources": {
             "post": {
                 "description": "Create a new data source configuration",
@@ -25,9 +242,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "Data Source"
                 ],
-                "summary": "Add Data Source",
+                "summary": "Add data source",
                 "parameters": [
                     {
                         "description": "Data Source",
@@ -77,9 +294,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "Data Source"
                 ],
-                "summary": "List Data Sources",
+                "summary": "List data sources",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -121,9 +338,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "Data Source"
                 ],
-                "summary": "Sync Data Source",
+                "summary": "Synchronize data source",
                 "parameters": [
                     {
                         "type": "string",
@@ -165,9 +382,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "Data Source"
                 ],
-                "summary": "Retrieve Data Source by id",
+                "summary": "Retrieve data source by id",
                 "parameters": [
                     {
                         "type": "string",
@@ -219,9 +436,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "Data Source"
                 ],
-                "summary": "Modify Data Source",
+                "summary": "Modify data source",
                 "parameters": [
                     {
                         "type": "string",
@@ -266,9 +483,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/datasources/{name}": {
+            },
             "delete": {
                 "description": "Permanently deletes the specified data source",
                 "consumes": [
@@ -278,9 +493,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "Data Source"
                 ],
-                "summary": "Remove Data Source",
+                "summary": "Remove data source",
                 "parameters": [
                     {
                         "type": "string",
@@ -330,7 +545,7 @@
                 "tags": [
                     "engine"
                 ],
-                "summary": "Add Engine",
+                "summary": "Add engine",
                 "parameters": [
                     {
                         "description": "Engine",
@@ -382,7 +597,7 @@
                 "tags": [
                     "engine"
                 ],
-                "summary": "List Engine",
+                "summary": "List engine",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -415,6 +630,54 @@
             }
         },
         "/engine/{id}": {
+            "get": {
+                "description": "Retrieve Engine configuration with the specified id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "engine"
+                ],
+                "summary": "Retrieve engine by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Engine Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/engine.EngineObject"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "Update the configuration of the specified Engine",
                 "consumes": [
@@ -424,9 +687,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "engine"
                 ],
-                "summary": "Modify Engine",
+                "summary": "Modify engine",
                 "parameters": [
                     {
                         "type": "string",
@@ -473,7 +736,7 @@
                 }
             },
             "delete": {
-                "description": "Permanently deletes the specified data source",
+                "description": "Permanently deletes the specified engine",
                 "consumes": [
                     "application/json"
                 ],
@@ -481,13 +744,13 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "engine"
                 ],
-                "summary": "Remove Data Source",
+                "summary": "Remove engine",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Data Source Id",
+                        "description": "Engine Id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -521,9 +784,9 @@
                 }
             }
         },
-        "/engine/{name}": {
+        "/health": {
             "get": {
-                "description": "Retrieve Engine configuration with the specified id",
+                "description": "API health check",
                 "consumes": [
                     "application/json"
                 ],
@@ -531,39 +794,12 @@
                     "application/json"
                 ],
                 "tags": [
-                    "engine"
+                    "Health"
                 ],
-                "summary": "Retrieve Engine by id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Data Source Name",
-                        "name": "name",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
+                "summary": "API health check",
                 "responses": {
                     "200": {
                         "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/engine.EngineObject"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.HTTPResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.HTTPResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/controllers.HTTPResponse"
                         }
@@ -581,9 +817,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "llm"
                 ],
-                "summary": "Add LLM Provider",
+                "summary": "Add llm provider",
                 "parameters": [
                     {
                         "description": "LLM Provider",
@@ -625,7 +861,7 @@
         },
         "/llm/all": {
             "get": {
-                "description": "Retrieve all data sources associated with the specified organization",
+                "description": "Retrieve all llm providers associated with the specified organization",
                 "consumes": [
                     "application/json"
                 ],
@@ -633,9 +869,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "llm"
                 ],
-                "summary": "List Data Sources",
+                "summary": "List llm providers",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -677,9 +913,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "llm"
                 ],
-                "summary": "Retrieve LLM Provider by id",
+                "summary": "Retrieve llm provider by id",
                 "parameters": [
                     {
                         "type": "string",
@@ -722,56 +958,6 @@
                     }
                 }
             },
-            "delete": {
-                "description": "Permanently deletes the specified data source",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "data_source"
-                ],
-                "summary": "Remove Data Source",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Data Source Name",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/llm.LLMProvider"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.HTTPResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.HTTPResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.HTTPResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/llm/{name}": {
             "put": {
                 "description": "Update the configuration of the specified LLM Provider",
                 "consumes": [
@@ -781,9 +967,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "data_source"
+                    "llm"
                 ],
-                "summary": "Modify LLM Provider",
+                "summary": "Modify llm provider",
                 "parameters": [
                     {
                         "type": "string",
@@ -834,11 +1020,118 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "Permanently deletes the specified llm provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "llm"
+                ],
+                "summary": "Remove llm provider",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "LLM Provider Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/llm.LLMProvider"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/prompts": {
+            "get": {
+                "description": "Retrieve prompts using pagination",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Prompt"
+                ],
+                "summary": "Retrieve prompts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/datachat.Prompt"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HTTPResponse"
+                        }
+                    }
+                }
             }
         },
         "/prompts/generate": {
             "post": {
-                "description": "Create an SQL query based on a natural language prompt",
+                "description": "Generate an SQL query based on a natural language prompt",
                 "consumes": [
                     "application/json"
                 ],
@@ -848,7 +1141,7 @@
                 "tags": [
                     "query"
                 ],
-                "summary": "Generate SQL Query",
+                "summary": "Generate sql query",
                 "parameters": [
                     {
                         "description": "Prompt Object",
@@ -900,7 +1193,7 @@
                 "tags": [
                     "query"
                 ],
-                "summary": "Improve SQL Query",
+                "summary": "Improve sql query",
                 "parameters": [
                     {
                         "description": "Prompt Object",
@@ -1020,6 +1313,48 @@
                 },
                 "query": {
                     "type": "string"
+                }
+            }
+        },
+        "datachat.DataChat": {
+            "type": "object",
+            "required": [
+                "created_at",
+                "created_by",
+                "name",
+                "organization_id",
+                "updated_at"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "integer"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "organization_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "integer"
+                }
+            }
+        },
+        "datachat.DataChatUpdate": {
+            "type": "object",
+            "required": [
+                "name",
+                "updated_at"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "integer"
                 }
             }
         },
