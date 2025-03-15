@@ -39,7 +39,7 @@
         "groups": [
           {
             "group": "Endpoints",
-            "openapi": "/api-reference/openapi-1.json"
+            "openapi": "https://af19-168-228-235-11.ngrok-free.app/v1/swagger/doc.json"
           }
         ]
       }
