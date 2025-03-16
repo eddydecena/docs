@@ -261,29 +261,6 @@
         },
         "type": "object"
       },
-      "engine.EngineObject": {
-        "properties": {
-          "api_key": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "synchronization_status": {
-            "$ref": "#/components/schemas/engine.EngineType"
-          }
-        },
-        "required": [
-          "api_key",
-          "id",
-          "name",
-          "synchronization_status"
-        ],
-        "type": "object"
-      },
       "engine.EngineObjectCreate": {
         "properties": {
           "api_key": {
@@ -298,6 +275,25 @@
         },
         "required": [
           "api_key",
+          "name",
+          "synchronization_status"
+        ],
+        "type": "object"
+      },
+      "engine.EngineObjectResponse": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "synchronization_status": {
+            "$ref": "#/components/schemas/engine.EngineType"
+          }
+        },
+        "required": [
+          "id",
           "name",
           "synchronization_status"
         ],
@@ -1185,7 +1181,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/engine.EngineObject"
+                    "$ref": "#/components/schemas/engine.EngineObjectResponse"
                   },
                   "type": "array"
                 }
@@ -1258,7 +1254,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/engine.EngineObject"
+                  "$ref": "#/components/schemas/engine.EngineObjectResponse"
                 }
               }
             },
@@ -1327,7 +1323,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/engine.EngineObject"
+                  "$ref": "#/components/schemas/engine.EngineObjectResponse"
                 }
               }
             },
@@ -1398,7 +1394,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/engine.EngineObject"
+                  "$ref": "#/components/schemas/engine.EngineObjectResponse"
                 }
               }
             },
