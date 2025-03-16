@@ -310,9 +310,6 @@
       },
       "llm.LLMProvider": {
         "properties": {
-          "_id": {
-            "type": "string"
-          },
           "api_key": {
             "type": "string"
           },
@@ -320,6 +317,9 @@
             "type": "integer"
           },
           "created_by": {
+            "type": "string"
+          },
+          "id": {
             "type": "string"
           },
           "name": {
@@ -337,10 +337,10 @@
           }
         },
         "required": [
-          "_id",
           "api_key",
           "created_at",
           "created_by",
+          "id",
           "name",
           "organization_id",
           "updated_at"
@@ -1140,7 +1140,7 @@
         },
         "summary": "Add engine",
         "tags": [
-          "engine"
+          "Engine"
         ]
       }
     },
@@ -1201,7 +1201,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "List engine",
+        "summary": "List engines",
         "tags": [
           "Engine"
         ]
@@ -1512,7 +1512,7 @@
     },
     "/llm/all": {
       "get": {
-        "description": "Retrieve all llm providers associated with the specified organization",
+        "description": "Retrieve all LLM providers associated with the specified organization",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1567,7 +1567,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "List llm providers",
+        "summary": "List LLM providers",
         "tags": [
           "LLM"
         ]
@@ -1575,7 +1575,7 @@
     },
     "/llm/{id}": {
       "delete": {
-        "description": "Permanently deletes the specified llm provider",
+        "description": "Permanently deletes the specified LLM provider",
         "parameters": [
           {
             "description": "LLM Provider Id",
@@ -1638,7 +1638,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "Remove llm provider",
+        "summary": "Remove LLM provider",
         "tags": [
           "LLM"
         ]
@@ -1717,7 +1717,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "Retrieve llm provider by id",
+        "summary": "Retrieve LLM provider by id",
         "tags": [
           "LLM"
         ]
@@ -1798,7 +1798,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "Modify llm provider",
+        "summary": "Modify LLM provider",
         "tags": [
           "LLM"
         ]
