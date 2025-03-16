@@ -1203,7 +1203,7 @@
         },
         "summary": "List engine",
         "tags": [
-          "engine"
+          "Engine"
         ]
       }
     },
@@ -1274,7 +1274,7 @@
         },
         "summary": "Remove engine",
         "tags": [
-          "engine"
+          "Engine"
         ]
       },
       "get": {
@@ -1343,7 +1343,7 @@
         },
         "summary": "Retrieve engine by id",
         "tags": [
-          "engine"
+          "Engine"
         ]
       },
       "put": {
@@ -1414,7 +1414,7 @@
         },
         "summary": "Modify engine",
         "tags": [
-          "engine"
+          "Engine"
         ]
       }
     },
@@ -1506,7 +1506,7 @@
         },
         "summary": "Add llm provider",
         "tags": [
-          "llm"
+          "LLM"
         ]
       }
     },
@@ -1569,7 +1569,7 @@
         },
         "summary": "List llm providers",
         "tags": [
-          "llm"
+          "LLM"
         ]
       }
     },
@@ -1640,7 +1640,7 @@
         },
         "summary": "Remove llm provider",
         "tags": [
-          "llm"
+          "LLM"
         ]
       },
       "get": {
@@ -1719,7 +1719,7 @@
         },
         "summary": "Retrieve llm provider by id",
         "tags": [
-          "llm"
+          "LLM"
         ]
       },
       "put": {
@@ -1800,7 +1800,7 @@
         },
         "summary": "Modify llm provider",
         "tags": [
-          "llm"
+          "LLM"
         ]
       }
     },
@@ -1946,7 +1946,7 @@
         },
         "summary": "Generate sql query",
         "tags": [
-          "query"
+          "Core"
         ]
       }
     },
@@ -2008,7 +2008,7 @@
         },
         "summary": "Improve sql query",
         "tags": [
-          "query"
+          "Core"
         ]
       }
     }
