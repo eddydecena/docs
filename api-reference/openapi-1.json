@@ -266,6 +266,29 @@
           "api_key": {
             "type": "string"
           },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "synchronization_status": {
+            "$ref": "#/components/schemas/engine.EngineType"
+          }
+        },
+        "required": [
+          "api_key",
+          "id",
+          "name",
+          "synchronization_status"
+        ],
+        "type": "object"
+      },
+      "engine.EngineObjectCreate": {
+        "properties": {
+          "api_key": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
@@ -604,7 +627,7 @@
         ]
       },
       "put": {
-        "description": "Update datachat",
+        "description": "Modify datachat",
         "parameters": [
           {
             "description": "DataChat Id",
@@ -1089,7 +1112,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/engine.EngineObject"
+                "$ref": "#/components/schemas/engine.EngineObjectCreate"
               }
             }
           },
@@ -1944,7 +1967,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "Generate sql query",
+        "summary": "Generate Query",
         "tags": [
           "Core"
         ]
@@ -2006,7 +2029,7 @@
             "description": "Internal Server Error"
           }
         },
-        "summary": "Improve sql query",
+        "summary": "Improve Query",
         "tags": [
           "Core"
         ]
