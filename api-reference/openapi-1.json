@@ -110,6 +110,37 @@
         ],
         "type": "object"
       },
+      "datachat.DataChatGet": {
+        "properties": {
+          "created_at": {
+            "type": "integer"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "created_at",
+          "created_by",
+          "id",
+          "name",
+          "organization_id",
+          "updated_at"
+        ],
+        "type": "object"
+      },
       "datachat.DataChatUpdate": {
         "properties": {
           "name": {
@@ -201,12 +232,12 @@
           "Optimize"
         ]
       },
-      "datasource.DataSource": {
+      "datasource.DataSourceGet": {
         "properties": {
-          "name": {
+          "id": {
             "type": "string"
           },
-          "secret": {
+          "name": {
             "type": "string"
           },
           "synchronization_status": {
@@ -217,8 +248,8 @@
           }
         },
         "required": [
+          "id",
           "name",
-          "secret",
           "synchronization_status",
           "type"
         ],
@@ -437,7 +468,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/datachat.DataChat"
+                    "$ref": "#/components/schemas/datachat.DataChatGet"
                   },
                   "type": "array"
                 }
@@ -499,7 +530,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/datachat.DataChat"
+                  "$ref": "#/components/schemas/datachat.DataChatGet"
                 }
               }
             },
@@ -570,7 +601,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/datachat.DataChat"
+                  "$ref": "#/components/schemas/datachat.DataChatGet"
                 }
               }
             },
@@ -651,7 +682,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/datachat.DataChat"
+                  "$ref": "#/components/schemas/datachat.DataChatGet"
                 }
               }
             },
@@ -701,7 +732,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/datasource.DataSource"
+                "$ref": "#/components/schemas/datasource.DataSourceGet"
               }
             }
           },
@@ -774,7 +805,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/datasource.DataSource"
+                    "$ref": "#/components/schemas/datasource.DataSourceGet"
                   },
                   "type": "array"
                 }
@@ -908,7 +939,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/datasource.DataSource"
+                  "$ref": "#/components/schemas/datasource.DataSourceGet"
                 }
               }
             },
@@ -977,7 +1008,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/datasource.DataSource"
+                  "$ref": "#/components/schemas/datasource.DataSourceGet"
                 }
               }
             },
@@ -1058,7 +1089,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/datasource.DataSource"
+                  "$ref": "#/components/schemas/datasource.DataSourceGet"
                 }
               }
             },
