@@ -83,30 +83,14 @@
         },
         "type": "object"
       },
-      "datachat.DataChat": {
+      "datachat.DataChatCreate": {
         "properties": {
-          "created_at": {
-            "type": "integer"
-          },
-          "created_by": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
-          },
-          "organization_id": {
-            "type": "string"
-          },
-          "updated_at": {
-            "type": "integer"
           }
         },
         "required": [
-          "created_at",
-          "created_by",
-          "name",
-          "organization_id",
-          "updated_at"
+          "name"
         ],
         "type": "object"
       },
@@ -145,14 +129,10 @@
         "properties": {
           "name": {
             "type": "string"
-          },
-          "updated_at": {
-            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "updated_at"
+          "name"
         ],
         "type": "object"
       },
@@ -234,10 +214,19 @@
       },
       "datasource.DataSourceGet": {
         "properties": {
+          "created_at": {
+            "type": "integer"
+          },
+          "created_by": {
+            "type": "string"
+          },
           "id": {
             "type": "string"
           },
           "name": {
+            "type": "string"
+          },
+          "organization_id": {
             "type": "string"
           },
           "synchronization_status": {
@@ -245,13 +234,20 @@
           },
           "type": {
             "$ref": "#/components/schemas/datasource.DataSourceType"
+          },
+          "updated_at": {
+            "type": "integer"
           }
         },
         "required": [
+          "created_at",
+          "created_by",
           "id",
           "name",
+          "organization_id",
           "synchronization_status",
-          "type"
+          "type",
+          "updated_at"
         ],
         "type": "object"
       },
@@ -518,7 +514,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/datachat.DataChat"
+                "$ref": "#/components/schemas/datachat.DataChatCreate"
               }
             }
           },
