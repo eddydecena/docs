@@ -263,7 +263,7 @@
       },
       "engine.EngineObjectCreate": {
         "properties": {
-          "api_key": {
+          "dsn": {
             "type": "string"
           },
           "name": {
@@ -274,7 +274,7 @@
           }
         },
         "required": [
-          "api_key",
+          "dsn",
           "name",
           "synchronization_status"
         ],
@@ -301,7 +301,7 @@
       },
       "engine.EngineObjectUpdate": {
         "properties": {
-          "api_key": {
+          "dsn": {
             "type": "string"
           },
           "name": {
