@@ -85,28 +85,12 @@
       },
       "datachat.DataChat": {
         "properties": {
-          "created_at": {
-            "type": "integer"
-          },
-          "created_by": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
-          },
-          "organization_id": {
-            "type": "string"
-          },
-          "updated_at": {
-            "type": "integer"
           }
         },
         "required": [
-          "created_at",
-          "created_by",
-          "name",
-          "organization_id",
-          "updated_at"
+          "name"
         ],
         "type": "object"
       },
