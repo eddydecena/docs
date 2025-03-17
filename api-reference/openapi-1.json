@@ -83,14 +83,30 @@
         },
         "type": "object"
       },
-      "datachat.DataChatCreate": {
+      "datachat.DataChat": {
         "properties": {
+          "created_at": {
+            "type": "integer"
+          },
+          "created_by": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "integer"
           }
         },
         "required": [
-          "name"
+          "created_at",
+          "created_by",
+          "name",
+          "organization_id",
+          "updated_at"
         ],
         "type": "object"
       },
@@ -212,6 +228,29 @@
           "Optimize"
         ]
       },
+      "datasource.DataSource": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "secret": {
+            "type": "string"
+          },
+          "synchronization_status": {
+            "$ref": "#/components/schemas/datasource.SynchronizationStatus"
+          },
+          "type": {
+            "$ref": "#/components/schemas/datasource.DataSourceType"
+          }
+        },
+        "required": [
+          "name",
+          "secret",
+          "synchronization_status",
+          "type"
+        ],
+        "type": "object"
+      },
       "datasource.DataSourceGet": {
         "properties": {
           "created_at": {
@@ -288,7 +327,7 @@
         },
         "type": "object"
       },
-      "engine.EngineObjectCreate": {
+      "engine.EngineObject": {
         "properties": {
           "dsn": {
             "type": "string"
@@ -514,7 +553,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/datachat.DataChatCreate"
+                "$ref": "#/components/schemas/datachat.DataChat"
               }
             }
           },
@@ -728,7 +767,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/datasource.DataSourceGet"
+                "$ref": "#/components/schemas/datasource.DataSource"
               }
             }
           },
@@ -740,7 +779,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.HTTPResponse"
+                  "$ref": "#/components/schemas/datasource.DataSourceGet"
                 }
               }
             },
@@ -1135,7 +1174,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/engine.EngineObjectCreate"
+                "$ref": "#/components/schemas/engine.EngineObject"
               }
             }
           },
@@ -1147,7 +1186,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.HTTPResponse"
+                  "$ref": "#/components/schemas/engine.EngineObjectResponse"
                 }
               }
             },
